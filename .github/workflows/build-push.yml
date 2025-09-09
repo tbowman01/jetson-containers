@@ -13,7 +13,7 @@ on:
       - '**/config.py'
 jobs:
   build-selected:
-    runs-on: [self-hosted, jetson]
+    runs-on: ubuntu-22.04-arm
     steps:
       - run: |
           cat /etc/nv_tegra_release || true
@@ -21,8 +21,8 @@ jobs:
         run: |
           echo "$RUNNER_WORKSPACE"
           cd $RUNNER_WORKSPACE
-          git config --global user.email "dustinf@nvidia.com"
-          git config --global user.name "Dustin Franklin"
+          git config --global user.email "noreply@github.com"
+          git config --global user.name "Trevor Bowman"
           git clone $GITHUB_SERVER_URL/$GITHUB_REPOSITORY || echo 'repo already cloned or another error encountered'
           cd jetson-containers
           git fetch origin
@@ -33,5 +33,5 @@ jobs:
         run: |
           cd jetson-containers
           for pkg in l4t-dynamo l4t-diffusion l4t-ml mlc nerfstudio ollama opendronemap lerobot genesis-world; do
-            ./build.sh --name=runner/ --push=dustynv $pkg
+            ./build.sh --name=runner/ --push=tbowman01 $pkg
           done
